@@ -168,6 +168,28 @@ eureka:
     enable-self-preservation: false
 ```
 
+**eureka配置心跳和剔除不可用服务**
+
+1、注意
+    改配置建议在开发和测试环境下使用，尽量不要在生产环境使用。
+
+2、背景
+    由于Eureka拥有自我保护机制，当其注册表里服务因为网络或其他原因出现故障而关停时，Eureka不会剔除服务注册，而是等待其修复。这是AP的一种实现。 
+
+3、解决方案
+    eureka server配置：
+
+eureka:
+  server:
+    enable-self-preservation: false #关闭自我保护
+    eviction-interval-timer-in-ms: 4000 #清理间隔（单位毫秒，默认是60*1000）
+    eureka client配置：
+
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 30 #服务过期时间配置,超过这个时间没有接收到心跳EurekaServer就会将这个实例剔除
+    lease-renewal-interval-in-seconds: 10 #服务刷新时间配置，每隔这个时间会主动心跳一次
+
 ### 2.2 Eureka Client代码:
 
 pom.xml文件:
@@ -296,7 +318,7 @@ DiscoveryManager.getInstance().shutdownComponent();
 
 ![image-20200630124625961](服务注册和发现Eureka.assets/image-20200630124625961.png)
 
-
+可以同时存在多个Eureka Server,Eureka Server之间互相注册,而向其中任何一个EurekaServer注册的服务，都在每个EurekaServer之间共享信息，这样，当其中一个Eureka Server出现问题时,保证服务还能正常使用。
 
 ## 4. 构建高可用的Eureka Server集群
 

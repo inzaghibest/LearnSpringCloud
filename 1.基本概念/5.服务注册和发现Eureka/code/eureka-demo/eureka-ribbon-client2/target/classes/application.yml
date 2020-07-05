@@ -1,0 +1,8 @@
+server:
+  port: 8766
+stores:
+  ribbon:
+    listOfServers: example.com,google.com
+ribbon:
+  eureka:
+    enabled: false

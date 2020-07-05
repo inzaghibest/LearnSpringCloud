@@ -1,13 +1,12 @@
 package com.zhangxp;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
- * @author Administrator
+ * @author zhangxp
+ * EnableEurekaServer注解表示这是一个Eureka服务注册中心
  */
 @EnableEurekaServer
 @SpringBootApplication

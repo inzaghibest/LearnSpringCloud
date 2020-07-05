@@ -1,9 +1,14 @@
-eureka:
-  client:
-    service-url:
-      defaultZone: http://peer1:8761/eureka/
 server:
   port: 8764
 spring:
   application:
     name: eureka-client2
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 15
+  client:
+    service-url:
+      defaultZone: http://peer1:8761/eureka/
+
+

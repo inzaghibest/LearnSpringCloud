@@ -1,0 +1,8 @@
+server:
+  port: 8766
+stores: # 自己维护服务列表,实现负载均衡
+  ribbon:
+    listOfServers: example.com,google.com
+ribbon:
+  eureka:
+    enabled: false  # 禁止从eureka-client获取服务注册列表

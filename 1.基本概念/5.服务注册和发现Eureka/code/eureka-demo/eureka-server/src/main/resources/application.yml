@@ -8,11 +8,13 @@
 #  client:
 #    service-url:
 #      defaultZone: http://${eureka.instance.hostname}:${server.port}}/eureka/
+#    # 是否向自己注册
 #    register-with-eureka: false
 #    fetch-registry: false
 #  server:
-#    enable-self-preservation: false
----
+#    enable-self-preservation: false #关闭自我保护机制
+#    eviction-interval-timer-in-ms: 60000 # 剔除服务的时间间隔
+#---
 spring:
   profiles: peer1
 server:
@@ -23,6 +25,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://peer2:8762/eureka/
+  server:
+    enable-self-preservation: false #关闭自我保护机制
+    eviction-interval-timer-in-ms: 60000 # 剔除服务的时间间隔
 ---
 spring:
   profiles: peer2
@@ -33,4 +38,7 @@ eureka:
     hostname: peer2
   client:
     service-url:
-      defaultZone: http://peer2:8761/eureka/
+      defaultZone: http://peer1:8761/eureka/
+  server:
+    enable-self-preservation: false #关闭自我保护机制
+    eviction-interval-timer-in-ms: 60000 # 剔除服务的时间间隔
